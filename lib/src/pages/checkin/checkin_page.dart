@@ -3,7 +3,9 @@ import 'package:flutter_getit/flutter_getit.dart';
 import 'package:lab_clinicas_core/lab_clinicas_core.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
+import '../../models/patient_address_model.dart';
 import '../../models/patient_information_form_model.dart';
+import '../../models/patient_model.dart';
 import '../../shared/data_item.dart';
 import 'checkin_controller.dart';
 import 'widgets/checkin_image_link.dart';
@@ -31,9 +33,26 @@ final class _CheckinPageState extends State<CheckinPage> {
 
   @override
   Widget build(BuildContext context) {
+    const bottomPadding = EdgeInsets.only(bottom: 24);
     final PatientInformationFormModel(
       :password,
-      :patient,
+      patient: PatientModel(
+        :name,
+        :phoneNumber,
+        :document,
+        :email,
+        :guardian,
+        :guardianIdentificationNumber,
+        address: PatientAddressModel(
+          :cep,
+          :streetAddress,
+          :number,
+          :addressComplement,
+          :state,
+          :city,
+          :district,
+        ),
+      ),
       :medicalOrders,
       :healthInsuranceCard,
     ) = _controller.informationForm.watch(context)!;
@@ -97,47 +116,45 @@ final class _CheckinPageState extends State<CheckinPage> {
                 const SizedBox(height: 24),
                 DataItem(
                   label: 'Nome Paciente',
-                  value: patient.name,
-                  padding: const EdgeInsets.only(bottom: 24),
+                  value: name,
+                  padding: bottomPadding,
                 ),
                 DataItem(
                   label: 'Email',
-                  value: patient.email,
-                  padding: const EdgeInsets.only(bottom: 24),
+                  value: email,
+                  padding: bottomPadding,
                 ),
                 DataItem(
                   label: 'Telefone de contato',
-                  value: patient.phoneNumber,
-                  padding: const EdgeInsets.only(bottom: 24),
+                  value: phoneNumber,
+                  padding: bottomPadding,
                 ),
                 DataItem(
                   label: 'CPF',
-                  value: patient.document,
-                  padding: const EdgeInsets.only(bottom: 24),
+                  value: document,
+                  padding: bottomPadding,
                 ),
                 DataItem(
                   label: 'CEP',
-                  value: patient.address.cep,
-                  padding: const EdgeInsets.only(bottom: 24),
+                  value: cep,
+                  padding: bottomPadding,
                 ),
                 DataItem(
                   label: 'Endereço',
-                  value: '${patient.address.streetAddress}, '
-                      '${patient.address.number} '
-                      '${patient.address.addressComplement}, '
-                      '${patient.address.district}, ${patient.address.city} - '
-                      '${patient.address.state}',
-                  padding: const EdgeInsets.only(bottom: 24),
+                  value: '$streetAddress, $number $addressComplement, '
+                      '$district, $city - '
+                      '$state',
+                  padding: bottomPadding,
                 ),
                 DataItem(
                   label: 'Responsável',
-                  value: patient.guardian,
-                  padding: const EdgeInsets.only(bottom: 24),
+                  value: guardian,
+                  padding: bottomPadding,
                 ),
                 DataItem(
                   label: 'Documento de identificação',
-                  value: patient.guardianIdentificationNumber,
-                  padding: const EdgeInsets.only(bottom: 24),
+                  value: guardianIdentificationNumber,
+                  padding: bottomPadding,
                 ),
                 const SizedBox(height: 24),
                 Container(
