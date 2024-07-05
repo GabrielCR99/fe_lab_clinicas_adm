@@ -6,11 +6,11 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.3.3
+  sdk: ^3.4.3
 
 dependencies:
   asyncstate: ^2.1.0
-  dio: ^5.4.3
+  dio: ^5.5.0
   flutter:
     sdk: flutter
   flutter_getit: ^2.0.0
@@ -18,11 +18,11 @@ dependencies:
   lab_clinicas_core:
     path: ../core
   shared_preferences: ^2.2.3
-  signals_flutter: ^5.2.1
+  signals_flutter: ^5.2.2
   validatorless: ^1.2.3
 
 dev_dependencies:
-  build_runner: ^2.4.9
+  build_runner: ^2.4.11
   dart_code_metrics: ^5.7.6
   json_serializable: ^6.8.0
 
