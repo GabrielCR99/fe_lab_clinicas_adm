@@ -40,8 +40,9 @@ final class AttendantDeskAssignmentRepositoryImpl
       final desk = await _getDeskByUser();
 
       if (desk != null) {
-        await restClient.auth
-            .delete<void>('/attendantDeskAssignment/${desk.id}');
+        await restClient.auth.delete<void>(
+          '/attendantDeskAssignment/${desk.id}',
+        );
       }
 
       return const Right(unit);
@@ -55,14 +56,13 @@ final class AttendantDeskAssignmentRepositoryImpl
   Future<({String id, int deskNumber})?> _getDeskByUser() async {
     final Response(:data) = await restClient.auth.get<List<Object?>>(
       '/attendantDeskAssignment',
-      queryParameters: {'user_id': '#userAuthRef'},
+      queryParameters: const {'user_id': '#userAuthRef'},
     );
 
-    if (data
-        case List(
-          isNotEmpty: true,
-          first: {'id': final String id, 'desk_number': final int deskNumber},
-        )) {
+    if (data case List(
+      isNotEmpty: true,
+      first: {'id': final String id, 'desk_number': final int deskNumber},
+    )) {
       return (id: id, deskNumber: deskNumber);
     }
 
@@ -72,11 +72,11 @@ final class AttendantDeskAssignmentRepositoryImpl
   @override
   Future<Either<RepositoryException, int>> getDeskAssignment() async {
     try {
-      final Response(data: List(first: data)!) =
-          await restClient.auth.get<List<Object?>>(
-        '/attendantDeskAssignment',
-        queryParameters: {'user_id': '#userAuthRef'},
-      );
+      final Response(data: List(first: data)!) = await restClient.auth
+          .get<List<Object?>>(
+            '/attendantDeskAssignment',
+            queryParameters: const {'user_id': '#userAuthRef'},
+          );
 
       return Right((data! as Map)['desk_number'] as int);
     } on DioException catch (e, s) {
